@@ -29,4 +29,13 @@ object InbuiltList {
   assert( sum(             List(3) ) ==  3, "sum of single-element list should be the element" )
   assert( sum( List(1, 2, 3, 4, 5) ) == 15, "sum of list should be sum of its elements")
 
+  def product(ds: List[Double]): Double = ds match {
+    case Nil => 1.0
+    case 0.0 :: _ => 0.0
+    case x :: xs => x * product(xs)
+  }
+
+  assert( product(                     List(3.0) ) ==   3.0, "product of single-element list should be the element" )
+  assert( product( List(1.0, 2.0, 3.0, 4.0, 5.0) ) == 120.0, "product of list should be product of its elements")
+
 }

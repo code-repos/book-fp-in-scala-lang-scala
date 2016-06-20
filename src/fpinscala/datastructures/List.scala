@@ -17,13 +17,22 @@ package fpinscala.datastructures
       case Cons(x, xs) => x + sum(xs)
     }
 
+    def product(ds: List[Double]): Double = ds match {
+      case Nil => 1.0
+      case Cons(0.0, _) => 0.0
+      case Cons(x, xs) => x * product(xs)
+    }
+
     def apply[A](as: A*): List[A] =
       if (as.isEmpty) Nil
       else Cons(as.head, apply(as.tail: _*))
 
-    assert( sum(              List() ) ==  0,  "sum of empty list should be 0")
-    assert( sum(             List(3) ) ==  3,    "sum of single-element list should be the element")
+    assert( sum(              List() ) ==  0,   "sum of empty list should be 0")
+    assert( sum(             List(3) ) ==  3,   "sum of single-element list should be the element")
     assert( sum( List(1, 2, 3, 4, 5) ) == 15,   "sum of list should be sum of its elements")
+
+    assert( product(           List(3.0) ) ==   3.0,  "product of single-element list should be the element")
+    assert( product( List(1, 2, 3, 4, 5) ) == 120.0,  "product of list should be product of its elements")
 
   }
 
