@@ -38,4 +38,17 @@ object InbuiltList {
   assert( product(                     List(3.0) ) ==   3.0, "product of single-element list should be the element" )
   assert( product( List(1.0, 2.0, 3.0, 4.0, 5.0) ) == 120.0, "product of list should be product of its elements")
 
+  // Exercise 3.2
+  // Implement the function tail for removing the first element of a List. Note that the
+  // function takes constant time. What are different choices you could make in your
+  // implementation if the List is Nil? We’ll return to this question in the next chapter.
+
+  def tail[A](list: List[A]): List[A] = list match {
+    case Nil => Nil
+    case x :: xs => xs
+  }
+
+  assert(         tail(Nil) == Nil,       "the tail of the empty list is the empty list")
+  assert( tail(List(1,2,3)) == List(2,3), "the tail of an n-element list is the list without its head")
+
 }
