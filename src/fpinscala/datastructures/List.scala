@@ -45,5 +45,17 @@ package fpinscala.datastructures
     }
 
     assert( tail(Cons(1,Cons(2,Cons(3,Nil)))) == Cons(2,Cons(3,Nil)), "the tail of a list is the list without its head")
+
+    // EXERCISE 3.3
+    // Using the same idea, implement the function setHead for replacing the first element
+    // of a List with a different value.
+
+    def setHead[A](list:List[A], x:A): List[A] = list match {
+      case Nil => throw new IllegalArgumentException("Empty list has no head!")
+      case Cons(_,xs) => Cons(x,xs)
+    }
+
+    assert(                 setHead(Cons(1,Nil),2) == Cons(2,Nil),                 "can change the head of a singleton list")
+    assert( setHead(Cons(1,Cons(2,Cons(3,Nil))),0) == Cons(0,Cons(2,Cons(3,Nil))), "can change the head of a list")
   }
 
