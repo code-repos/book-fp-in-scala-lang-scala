@@ -40,11 +40,10 @@ package fpinscala.datastructures
     // implementation if the List is Nil? We’ll return to this question in the next chapter.
 
     def tail[A](list: List[A]): List[A] = list match {
-      case Nil => Nil
+      case Nil => throw new IllegalArgumentException("Empty list has no tail!")
       case Cons(x, xs) => xs
     }
 
-    assert(                         tail(Nil) == Nil,                 "the tail of the empty list is the empty list")
-    assert( tail(Cons(1,Cons(2,Cons(3,Nil)))) == Cons(2,Cons(3,Nil)), "the tail of an n-element list is the list without its head")
+    assert( tail(Cons(1,Cons(2,Cons(3,Nil)))) == Cons(2,Cons(3,Nil)), "the tail of a list is the list without its head")
   }
 
