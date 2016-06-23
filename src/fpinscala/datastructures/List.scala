@@ -69,8 +69,9 @@ package fpinscala.datastructures
       case (Cons(_,tail),n) => drop(tail,n-1)
     }
 
-    assert( drop(Cons(1,Cons(2,Cons(3,Nil))),1) == Cons(2,Cons(3,Nil) ), "can drop one element from list")
-    assert( drop(Cons(1,Cons(2,Cons(3,Nil))),2) == Cons(3,Nil),          "can drop two element from list")
-    assert( drop(Cons(1,Cons(2,Cons(3,Nil))),3) == Nil,                  "can drop all elements from list")
+    assert( drop(Cons(1,Cons(2,Cons(3,Nil))),0) == Cons(1,Cons(2,Cons(3,Nil)) ), "can drop one element from list")
+    assert( drop(Cons(1,Cons(2,Cons(3,Nil))),1) == Cons(2,Cons(3,Nil) ),         "can drop one element from list")
+    assert( drop(Cons(1,Cons(2,Cons(3,Nil))),2) == Cons(3,Nil),                  "can drop two element from list")
+    assert( drop(Cons(1,Cons(2,Cons(3,Nil))),3) == Nil,                          "can drop all elements from list")
   }
 

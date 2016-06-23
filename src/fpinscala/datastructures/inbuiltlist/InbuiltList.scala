@@ -62,5 +62,20 @@ object InbuiltList {
   assert(     setHead(List(1),2) == List(2),     "can change the head of a singleton list")
   assert( setHead(List(1,2,3),0) == List(0,2,3), "can change the head of a list")
 
+  // EXERCISE 3.4
+  // Generalize tail to the function drop, which removes the first n elements from a list.
+  // Note that this function takes time proportional only to the number of elements being
+  // dropped—we don’t need to make a copy of the entire List.
+
+  def drop[A](l: List[A], n: Int): List[A] = (l,n) match {
+    case (_,0) => l
+    case (Nil,_)  => throw new IllegalArgumentException("Cannot drop elements from an empty List!")
+    case (_ :: tail, n) => drop(tail,n-1)
+  }
+
+  assert( drop( List(1,2,3), 0) == List(1,2,3), "can drop one element from list" )
+  assert( drop( List(1,2,3), 1) == List(2,3),   "can drop one element from list" )
+  assert( drop( List(1,2,3), 2) == List(3),     "can drop two element from list" )
+  assert( drop( List(1,2,3), 3) == List(),      "can drop all elements from list" )
 
 }
