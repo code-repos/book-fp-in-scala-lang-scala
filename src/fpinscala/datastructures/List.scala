@@ -57,5 +57,20 @@ package fpinscala.datastructures
 
     assert(                 setHead(Cons(1,Nil),2) == Cons(2,Nil),                 "can change the head of a singleton list")
     assert( setHead(Cons(1,Cons(2,Cons(3,Nil))),0) == Cons(0,Cons(2,Cons(3,Nil))), "can change the head of a list")
+
+    // EXERCISE 3.4
+    // Generalize tail to the function drop, which removes the first n elements from a list.
+    // Note that this function takes time proportional only to the number of elements being
+    // dropped—we don’t need to make a copy of the entire List.
+
+    def drop[A](l: List[A], n: Int): List[A] = (l,n) match {
+      case (_,0) => l
+      case (Nil,_) => throw new IllegalArgumentException("Cannot drop elements from an empty List!")
+      case (Cons(_,tail),n) => drop(tail,n-1)
+    }
+
+    assert( drop(Cons(1,Cons(2,Cons(3,Nil))),1) == Cons(2,Cons(3,Nil) ), "can drop one element from list")
+    assert( drop(Cons(1,Cons(2,Cons(3,Nil))),2) == Cons(3,Nil),          "can drop two element from list")
+    assert( drop(Cons(1,Cons(2,Cons(3,Nil))),3) == Nil,                  "can drop all elements from list")
   }
 
