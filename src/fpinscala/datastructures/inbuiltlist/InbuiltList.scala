@@ -1,5 +1,7 @@
 package fpinscala.datastructures.inbuiltlist
 
+import fpinscala.datastructures.Cons
+
 object InbuiltList {
 
   assert(              List() ==      Nil,  "the empty list is nil")
@@ -77,5 +79,22 @@ object InbuiltList {
   assert( drop( List(1,2,3), 1) == List(2,3),   "can drop one element from list" )
   assert( drop( List(1,2,3), 2) == List(3),     "can drop two element from list" )
   assert( drop( List(1,2,3), 3) == List(),      "can drop all elements from list" )
+
+  // EXERCISE 3.5
+  // Implement dropWhile, which removes elements from the List prefix as long as they
+  // match a predicate.
+
+  def dropWhile[A](l: List[A], f: A => Boolean): List[A] = l match {
+    case Nil => Nil
+    case (x :: xs) =>
+      if (f(x)) dropWhile(xs,f)
+      else l
+  }
+
+  def isEven(n:Int): Boolean = n % 2 == 0
+  assert(           dropWhile( Nil, isEven) == Nil,           "no element to drop")
+  assert( dropWhile( List(1,2,3,4), isEven) == List(1,2,3,4), "no elements are dropped")
+  assert( dropWhile( List(2,3,4,5), isEven) == List(3,4,5),   "first element is dropped")
+  assert( dropWhile( List(2,4,6,8), isEven) == Nil,           "all elements are dropped")
 
 }

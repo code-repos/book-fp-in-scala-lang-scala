@@ -44,7 +44,7 @@ package fpinscala.datastructures
       case Cons(x, xs) => xs
     }
 
-    assert( tail(Cons(1,Cons(2,Cons(3,Nil)))) == Cons(2,Cons(3,Nil)), "the tail of a list is the list without its head")
+    assert( tail(List(1,2,3)) == List(2,3), "the tail of a list is the list without its head")
 
     // EXERCISE 3.3
     // Using the same idea, implement the function setHead for replacing the first element
@@ -55,8 +55,8 @@ package fpinscala.datastructures
       case Cons(_,xs) => Cons(x,xs)
     }
 
-    assert(                 setHead(Cons(1,Nil),2) == Cons(2,Nil),                 "can change the head of a singleton list")
-    assert( setHead(Cons(1,Cons(2,Cons(3,Nil))),0) == Cons(0,Cons(2,Cons(3,Nil))), "can change the head of a list")
+    assert(     setHead(List(1),2) == List(2),     "can change the head of a singleton list")
+    assert( setHead(List(1,2,3),0) == List(0,2,3), "can change the head of a list")
 
     // EXERCISE 3.4
     // Generalize tail to the function drop, which removes the first n elements from a list.
@@ -69,9 +69,26 @@ package fpinscala.datastructures
       case (Cons(_,tail),n) => drop(tail,n-1)
     }
 
-    assert( drop(Cons(1,Cons(2,Cons(3,Nil))),0) == Cons(1,Cons(2,Cons(3,Nil)) ), "can drop one element from list")
-    assert( drop(Cons(1,Cons(2,Cons(3,Nil))),1) == Cons(2,Cons(3,Nil) ),         "can drop one element from list")
-    assert( drop(Cons(1,Cons(2,Cons(3,Nil))),2) == Cons(3,Nil),                  "can drop two element from list")
-    assert( drop(Cons(1,Cons(2,Cons(3,Nil))),3) == Nil,                          "can drop all elements from list")
+    assert( drop(List(1,2,3),0) == List(1,2,3), "can drop one element from list")
+    assert( drop(List(1,2,3),1) == List(2,3),   "can drop one element from list")
+    assert( drop(List(1,2,3),2) == List(3),     "can drop two element from list")
+    assert( drop(List(1,2,3),3) == Nil,         "can drop all elements from list")
+
+    // EXERCISE 3.5
+    // Implement dropWhile, which removes elements from the List prefix as long as they
+    // match a predicate.
+
+    def dropWhile[A](l: List[A], f: A => Boolean): List[A] = l match {
+      case Nil => Nil
+      case Cons(head, tail) =>
+        if (f(head)) dropWhile(tail,f)
+        else l
+    }
+
+    def isEven(n:Int): Boolean = n % 2 == 0
+    assert(           dropWhile( Nil, isEven) == Nil,            "no element to drop")
+    assert( dropWhile( List(1,2,3,4), isEven) == List(1,2,3,4),  "no elements are dropped")
+    assert( dropWhile( List(2,3,4,5), isEven) == List(3,4,5),    "first element is dropped")
+    assert( dropWhile( List(2,4,6,8), isEven) == Nil,            "all elements are dropped")
   }
 
